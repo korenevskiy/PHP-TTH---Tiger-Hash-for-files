@@ -2,7 +2,6 @@
 /**
  * @author Sergei Korenevskiy <korenevskiy.sergei@gmail.com>
  * @author Alexey Kupershtokh <alexey.kupershtokh@gmail.com>
- * @url http://kupershtokh.blogspot.com/2007/12/on-phpclub.html
  */
 defined('JOOMLIKE_PATH') or die;
 class TTH {
