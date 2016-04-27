@@ -4,16 +4,12 @@
  * @author Sergei Korenevskiy <korenevskiy.sergei@gmail.com>
  * @author Alexey Kupershtokh <alexey.kupershtokh@gmail.com>
  */
+namespace JoomLike\Hash;
 class TTH {
   private static $BASE32_ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ234567';
   private static $tiger_hash = null;
   private static $tiger_mhash = null;
-  /**
-   * If PHP version 5.4 or hightest
-   * then $php54 = true
-   * else $php54 = false
-   */
-  public static $php54 = true;
+  public static $php54 = null;
 
   /**
    * Generates DC-compatible TTH of a file.
@@ -99,6 +95,8 @@ class TTH {
       $my_split = str_split($binary_hash,8);
       $my_tiger ="";
       foreach($my_split as $key => $value) {
+         if(is_null(self::$php54))
+            self::$php54 = version_compare(PHP_VERSION, '5.4', '>=');
          if(!self::$php54)
             $my_split[$key] = strrev($value);
          $my_tiger .= $my_split[$key];
