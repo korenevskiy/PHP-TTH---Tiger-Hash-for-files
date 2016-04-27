@@ -1,5 +1,6 @@
 <?php
 /**
+ * @version 0.9
  * @author Sergei Korenevskiy <korenevskiy.sergei@gmail.com>
  * @author Alexey Kupershtokh <alexey.kupershtokh@gmail.com>
  */
