@@ -4,7 +4,6 @@
  * @author Sergei Korenevskiy <korenevskiy.sergei@gmail.com>
  * @author Alexey Kupershtokh <alexey.kupershtokh@gmail.com>
  */
-defined('JOOMLIKE_PATH') or die;
 class TTH {
   private static $BASE32_ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ234567';
   private static $tiger_hash = null;
