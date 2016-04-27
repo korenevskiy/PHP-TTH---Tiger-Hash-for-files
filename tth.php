@@ -99,7 +99,7 @@ class TTH {
       $my_split = str_split($binary_hash,8);
       $my_tiger ="";
       foreach($my_split as $key => $value) {
-         if(!$php54)
+         if(!self::$php54)
             $my_split[$key] = strrev($value);
          $my_tiger .= $my_split[$key];
       }
