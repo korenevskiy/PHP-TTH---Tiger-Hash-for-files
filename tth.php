@@ -9,7 +9,7 @@ class TTH {
   private static $BASE32_ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ234567';
   private static $tiger_hash = null;
   private static $tiger_mhash = null;
-  public static $php54 = null;
+  private static $php54 = null;
 
   /**
    * Generates DC-compatible TTH of a file.
