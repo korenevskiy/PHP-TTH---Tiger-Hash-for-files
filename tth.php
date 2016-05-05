@@ -16,9 +16,9 @@ class TTH {
    *
    * @param string $path folder 
    * @param string $subdir 
-   * @return string TTH folder
+   * @return mix string or array TTH folder
    */
-    public static function getTTHfolder($path,$subdir=FALSE)
+    public static function getTTHfolder($path,$subdir=FALSE, $array_hash=FALSE)
     {
         $path = rtrim ($path,DIRECTORY_SEPARATOR); 
         if($path=='')   return;
@@ -31,6 +31,8 @@ class TTH {
             else 
                 unset ($items[$key]);
         }
+         
+        sort($items); 
         
         $hashes = array();
         
@@ -40,20 +42,26 @@ class TTH {
             $isfile = is_file($item);
             
             if($isdir && $subdir){
-                $hf = self::getTTHfolder($item,TRUE);
-                
-                if($hf)
-                    $hashes[] = $hf.self::tiger(dirname($item));;
+                $hf = self::getTTHfolder($item,TRUE, TRUE);
+                if(is_array($hf) && count($hf)){
+                    $hashes[] = self::tiger(dirname($item));
+                    $hashes[] = array_merge ($hashes, $hf);
+                    continue;
+                }
+                    
+                if($hf)$hashes[] = $hf.self::tiger(dirname($item));
             }
             
             if($isfile)
                 $hashes[] = self::getTTH($item); 
         }
-         
+        
+        if($array_hash) return $hashes;
+        
         if(count($hashes) == 0) return '';
         
         sort($hashes); 
-        
+         
         return self::tiger(join('', $hashes));
     }
   /**
