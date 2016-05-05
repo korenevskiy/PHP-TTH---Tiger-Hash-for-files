@@ -43,7 +43,7 @@ class TTH {
             if($isdir && $subdir){
                 $hf = self::getTTHfolder($item,TRUE, TRUE);
                 if(is_array($hf) && count($hf)){
-                    $hashes[] = self::tiger(trim(dirname($item),DIRECTORY_SEPARATOR));
+                    $hashes[] = self::tiger(array_pop(explode(DIRECTORY_SEPARATOR,$item)));
                     $hashes[] = array_merge ($hashes, $hf);
                     continue;
                 }
