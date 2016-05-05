@@ -1,8 +1,8 @@
 <?php
 /**
- * @version 0.9
- * @author Sergei Korenevskiy <korenevskiy.sergei@gmail.com>
- * @author Alexey Kupershtokh <alexey.kupershtokh@gmail.com>
+ * Get file TTH and Get files(folders) TTH
+ * @version 0.96
+ * @author Sergei Korenevskiy <korenevskiy.sergei@gmail.com> 
  */
 namespace JoomLike\Hash;
 class TTH {
@@ -12,12 +12,58 @@ class TTH {
   private static $php54 = null;
 
   /**
+   * Generates TTH of a folder.
+   *
+   * @param string $path folder 
+   * @param string $subdir 
+   * @return string TTH folder
+   */
+    public static function getTTHfolder($path,$subdir=FALSE)
+    {
+        $path = rtrim ($path,DIRECTORY_SEPARATOR); 
+        if($path=='')   return;
+        $items = scandir ($path, SCANDIR_SORT_NONE);
+        if(!$items)     return '';
+        
+        foreach ($items as $key=> $item){
+            if($item!='.' && $item!='..')
+                $items[$key] = $path.DIRECTORY_SEPARATOR.$item;
+            else 
+                unset ($items[$key]);
+        }
+        
+        $hashes = array();
+        
+        foreach ($items as $item){
+            //$item = $path.'/'.$item;
+            $isdir  = is_dir ($item);
+            $isfile = is_file($item);
+            
+            if($isdir && $subdir){
+                $hf = self::getTTHfolder($item,TRUE);
+                
+                if($hf)
+                    $hashes[] = $hf.self::tiger(dirname($item));;
+            }
+            
+            if($isfile)
+                $hashes[] = self::getTTH($item); 
+        }
+         
+        if(count($hashes) == 0) return '';
+        
+        sort($hashes); 
+        
+        return self::tiger(join('', $hashes));
+    }
+  /**
    * Generates DC-compatible TTH of a file.
    *
    * @param string $filename
    * @return string
    */
-  public static function getTTH($filename) {
+  public static function getTTH($filename) 
+  {
     $fp = fopen($filename, "rb");
     if($fp) {
       $i = 1;
@@ -64,7 +110,8 @@ class TTH {
    * @param string $string
    * @return string
    */
-  private static function tiger($string) {
+  private static function tiger($string) 
+  {
     if (is_null(self::$tiger_hash)) {
        self::$tiger_hash = function_exists("hash_algos") && in_array("tiger192,3", hash_algos());
     }
@@ -91,7 +138,8 @@ class TTH {
    * @param string $binary_hash
    * @return string
    */ 
-  private static function tigerfix($binary_hash) {
+  private static function tigerfix($binary_hash) 
+  {
       $my_split = str_split($binary_hash,8);
       $my_tiger ="";
       foreach($my_split as $key => $value) {
@@ -111,7 +159,8 @@ class TTH {
    * @param string $input
    * @return string
    */
-  private static function base32encode($input) {
+  private static function base32encode($input)
+  {
     $output = '';
     $position = 0;
     $storedData = 0;
