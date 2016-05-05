@@ -60,7 +60,7 @@ class TTH {
         
         if(count($hashes) == 0) return '';
         
-        sort($hashes); 
+        //sort($hashes); 
          
         return self::tiger(join('', $hashes));
     }
