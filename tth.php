@@ -23,20 +23,19 @@ class TTH {
         $path = rtrim ($path,DIRECTORY_SEPARATOR); 
         if($path=='')   return;
         $items = scandir ($path, SCANDIR_SORT_NONE);
-        if(!$items)     return '';
         
-        foreach ($items as $key=> $item){
-            if($item!='.' && $item!='..')
-                $items[$key] = $path.DIRECTORY_SEPARATOR.$item;
-            else 
-                unset ($items[$key]);
-        }
-         
+        if(!$items ) return '';
+        
         sort($items); 
         
         $hashes = array();
         
         foreach ($items as $item){
+            if($item=='.' || $item=='..') 
+                continue;
+            else 
+                $item=$path.DIRECTORY_SEPARATOR.$item;
+                
             //$item = $path.'/'.$item;
             $isdir  = is_dir ($item);
             $isfile = is_file($item);
