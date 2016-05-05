@@ -9,7 +9,6 @@
         <div>
 <?php 
     require_once dirname(__FILE__) . '/tth.php';
-    
     use JoomLike\Hash;
     
     $file = 'index.html';
