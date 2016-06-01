@@ -1,7 +1,7 @@
 <?php
 /**
  * Get file TTH and Get files(folders) TTH
- * @version 0.96
+ * @version 0.97
  * @author Sergei Korenevskiy <korenevskiy.sergei@gmail.com> 
  */
 namespace JoomLike\Hash;
@@ -15,7 +15,8 @@ class TTH {
    * Generates TTH of a folder.
    *
    * @param string $path folder 
-   * @param string $subdir 
+   * @param bool $subdir If TRUE then scan and get hash subdirectories else do not scan subdirectories
+   * @param bool $array_hash If TRUE then method return array HashStrings files else return once HashString all files
    * @return mix string or array TTH folder
    */
     public static function getTTHfolder($path,$subdir=FALSE, $array_hash=FALSE)
@@ -67,7 +68,7 @@ class TTH {
    * Generates DC-compatible TTH of a file.
    *
    * @param string $filename
-   * @return string
+   * @return string return HashString from file
    */
   public static function getTTH(string $filename) 
   {
@@ -115,7 +116,7 @@ class TTH {
    * Automatically chooses between hash() and mhash().
    *
    * @param string $string
-   * @return string
+   * @return string return HashString from string
    */
   private static function tiger($string) 
   {
@@ -143,7 +144,7 @@ class TTH {
    *
    * @url http://www.php.net/manual/en/ref.mhash.php#55737
    * @param string $binary_hash
-   * @return string
+   * @return string 
    */ 
   private static function tigerfix($binary_hash) 
   {
