@@ -8,7 +8,7 @@
     <body>
         <div>
 <?php 
-    require_once dirname(__FILE__) . '/JoomLike/Hash/tth.php';
+    require_once dirname(__FILE__) . '/JoomLike/Hash/TTH.php';
     use JoomLike\Hash;
     
     $file = 'index.html';
